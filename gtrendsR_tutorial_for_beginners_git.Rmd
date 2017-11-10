@@ -2,12 +2,15 @@
 title: "gtrendsR tutorial for beginners"
 author: "Charlotte Woolley"
 date: "9th of November 2017"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+The purpose of this tutorial is to give a brief introduction to Google Trends data
+using the gtrendsR package and to demonstrate some of its potential applications.
 
 ## Introduction to Google Trends
 
@@ -48,22 +51,12 @@ Load gtrendsR and any other useful packages for this tutorial.
         library(dplyr)
 ```
 
-The gtrendsR package is mainly built around the 'gtrends' function. This function contains the same arguements as can be specified for retriving data on the Google Trends website. It is important to understand what these mean so I recommend checking out the help file.
-
-```{r helpfile, eval=FALSE, tidy=TRUE}
-        ?gtrends
-```
-
-In order to know which codes to enter into the gtrends function for location and category, you need to extract these out of the package and view them. Locations are divided into countries and regions and categories are similarly divided into major catgories and subcategories. 
+The gtrendsR package is mainly built around the 'gtrends' function. This function contains the same arguements as can be specified for retriving data on the Google Trends website. It is important to understand what these mean so I recommend checking out the help file (using ?gtrends). In order to know which codes to enter into the gtrends function for location and category, you need to extract these out of the package and view them. Locations are divided into countries and regions and categories are similarly divided into major catgories and subcategories. 
 
 ```{r countries and categories, tidy=TRUE}
-#Have a look at the different location codes        
         data("countries")
         head(countries)
-#And the different region codes within GB
         head(subset(countries, countries$country_code =='GB'), 15)
-
-#Have a look at the different categories        
         data("categories")
         head(categories)
 ```
