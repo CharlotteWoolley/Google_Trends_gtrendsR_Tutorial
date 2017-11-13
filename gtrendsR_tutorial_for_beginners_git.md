@@ -8,7 +8,9 @@ The purpose of this tutorial is to give a brief introduction to Google Trends da
 Introduction to Google Trends
 -----------------------------
 
-Google Trends is a freely available and publically accessible online facility of Google Inc. that provides pre-processed search query data from January the 1st 2004 until present day. The data is:
+Google Trends is a freely available and publically accessible online facility of Google Inc. that provides pre-processed search query data from January the 1st 2004 until present day. The Google Trends [website](https://trends.google.co.uk/trends/) provides data and reguarly updated trending themes/topics.
+
+### Google Trends data is:
 
 -   Normalised; it is an ‘index’ of the proportion of queries within a particular geographical region at a particular time divided by the total number of queries at that region and time, where the maximum number of queries is scaled at 100
 -   Anonymised; an unreported privacy threshold is kept so that if the total number of searches for a particular time or region are less than this value, a zero will be reported
@@ -19,13 +21,17 @@ Google Trends is a freely available and publically accessible online facility of
 -   De-duplicated so that the same person making several of the same requests will not infulence the results
 -   De-symbolised so that all special characters are filtered out of the search term
 
-In addition to providing temporal and locational data, Google also provides information of the top and rising 'related queries' and 'related topics'.
+(Google, 2017; Milinovich et al., 2014; Stephens-Davidowitz & Varian, 2015)
+
+### Related terms and topics
+
+In addition to providing temporal and locational data, Google also provides information of the top and rising 'related queries' and 'related topics'
 
 -   Related queries (sometimes referred to as terms) are matches within your query in the same language. For example, if your search term is 'coconut', results will include 'coconut milk'. If your search term is 'coconut milk' results will include 'coconut oil' and 'pasteurised milk'
 -   Related topics are a group of terms that have a similar concept and do not have to be in the same language. For example, if your search term is 'Scotland', results will include 'Schottland' (German for Scotland) and 'United Kingdom' (related topic)
 -   Top refers to the most frequent and rising refers to the most growth in volume.
 
-(Google, 2017; Milinovich et al., 2014; Stephens-Davidowitz & Varian, 2015)
+(Google, 2017)
 
 Installing and understanding the gtrendsR package
 -------------------------------------------------
@@ -198,7 +204,7 @@ emigrate_rt <- as.data.frame(emigrate$related_topics)
 emigrate_rq <- as.data.frame(emigrate$related_queries)
 ```
 
-To view a the data over time we can plot a line graph in ggplot
+To view the data over time we can plot a line graph in ggplot
 
 ``` r
 emigrate_iot$date <- as.Date(emigrate_iot$date)
@@ -354,7 +360,6 @@ Now we can extract the 'interest over time' database and plot it using ggplot
 
 ``` r
 fake_news_iot <- as.data.frame(fake_news$interest_over_time)
-fake_news_iot$date <- as.Date(fake_news_iot$date)
 ggplot(fake_news_iot, aes(x = date, y = hits)) + geom_line() + labs(title = "Worldwide Google searches for 'fake news' since 2004", 
     x = "Year", y = "Search index") + scale_y_continuous(breaks = c(seq(from = 0, 
     to = 100, by = 10))) + scale_x_date(date_breaks = "1 year", date_labels = "%Y") + 
