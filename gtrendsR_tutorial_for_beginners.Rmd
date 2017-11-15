@@ -43,8 +43,8 @@ Many professionals, such as scientists, journalists, marketers, business and fin
 Google Trends data is not a huge dataset containing every search made by every IP address in the world. To ensure that it is practical and ethical to use the information obtained from search queries, Google pre-processes the data before it is released, so that it is:
 
 * Normalised; it is an ‘index’ of the proportion of queries within a particular geographical region at a particular time divided by the total number of queries at that region and time, where the maximum number of queries is scaled at 100
-* Anonymised; an unreported privacy threshold is kept so that if the total number of searches for a particular time or region are less than this value, a zero will be reported
-* Aggregated; for a time series of up to 90 days, daily data is supplied and for time series greater than 90 days, weekly data is supplied
+* Anonymised; an unreported privacy threshold is kept so that if the total number of searches for a particular time and region are less than this value, a zero will be reported
+* Aggregated; for a time series of up to 4 hours - data is supplied for every minute, 24 hours - every 8 mins, 7 days - every hour, 3 months - every day, 5 years - every week, more than 5 years - every month
 * Cached daily; the same request on the same date will return the same data
 * Rounded to the nearest integer
 * Categorised into about 25 main categories and hundreds of subcategories
@@ -62,7 +62,7 @@ In addition to providing temporal and locational data, Google also provides info
 
 (Google, 2017) 
 
-### Overcoming biases in Google Trends data
+### Understanding potential biases in Google Trends data
 
 Despite the fact it is an undeniably useful tool, Google Trends data is not an ultimately superior source of information and contains its own individual biases that must be considered, like all data. Some important things to consider include:
 
@@ -72,6 +72,8 @@ Despite the fact it is an undeniably useful tool, Google Trends data is not an u
 * Search query selection; there are many possible terms that could be selected and ambiguity of search terms can cause interpretation errors if there is more than one meaning or spelling for a word 
 * Don't be deceived by big data hubris (the assumption that big data substitute rather than compliment traditional data sources); the more sources of data you have, the more reliable your models will be!
 * Lack of data supplied by Google Trends; sometimes there will not be enough data from a particular region to bypass Google's anonymity threshold, which can cause certain regions to appear disproportionately uninterested in a particular search query
+* Interference from Google suggestions; when people are searching, they might change their natural searching behaviour based on Google search suggestions or spelling corrections
+* Changes in the Google data collection system; Google improved their data collection system on the 01/01/2016 and improved their geographical assignment on the 01/01/2011
 * Functionality of the gtrendsR package; it is not currently (although this is likely to be updated) possible to search England, Scotland, Wales and Northern Ireland seperately as regions, even though counties (e.g. Derbyshire) can be selected individually
 
 (Nuti *et al*., 2014; Stephens-Davidowitz & Varian, 2015; Google, 2017)
@@ -94,7 +96,7 @@ library(lubridate)
 library(dplyr)
 ```
 
-The gtrendsR package is mainly built around the 'gtrends' function. This function contains the same arguements as can be specified for retriving data on the Google Trends website. It is important to understand what these mean so I recommend checking out the help file (using ?gtrends). In order to know which codes to enter into the gtrends function for location and category, you need to extract these out of the package and view them. Locations are divided into countries and regions and categories are similarly divided into major catgories and subcategories. 
+The gtrendsR package is mainly built around the 'gtrends' function. This function contains the same arguments as can be specified for retrieving data on the Google Trends website. It is important to understand what these mean so I recommend checking out the help file (using ?gtrends). In order to know which codes to enter into the gtrends function for location and category, you need to extract these out of the package and view them. Locations are divided into countries and regions and categories are similarly divided into major catgories and subcategories. 
 ```{r countries and categories}
 data("countries")
 head(countries)
@@ -307,7 +309,7 @@ hay_fever_iot <- as.data.frame(hay_fever$interest_over_time)
 hay_fever_iot$date <- as.Date(hay_fever_iot$date)
 ggplot(hay_fever_iot, aes(x=date, y = hits)) +
         geom_line() +
-        labs(title = "Google searches in Great Britain for 'hay_fever' since 2004", 
+        labs(title = "Google searches in Great Britain for 'hay fever' since 2004", 
              x = "Year", 
              y = "Search index") +
         scale_y_continuous(breaks=c(seq(from=0, to=100, by=10))) +
